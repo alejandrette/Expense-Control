@@ -2,16 +2,11 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import DatePicker from 'react-date-picker';
 import 'react-calendar/dist/Calendar.css'
 import 'react-date-picker/dist/DatePicker.css'
+import { Expense } from '../types';
+import { useBudget } from '../hooks/useBudget';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
-type Expense = {
-  nameExpense: string;
-  amount: number;
-  category: number;
-  date: Value
-}
 
 export const categories = [
   { id: 1, name: 'Ahorro', icon: 'ahorro' },
@@ -24,12 +19,14 @@ export const categories = [
 ];
 
 export function ExpenseForm() {
-  const [expense, setExpense] = useState<Expense>({
+  const { state, dispatch } = useBudget()
+  const initialState = {
     nameExpense: '',
     amount: 0,
     category: 0,
     date: new Date()
-  })
+  }
+  const [expense, setExpense] = useState<Expense>(initialState)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -46,9 +43,12 @@ export function ExpenseForm() {
     }));
   };
 
+  const isValid: boolean = expense.nameExpense.trim() !== '' && expense.amount > 0 && expense.category !== 0
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(expense)
+    dispatch({ type: 'add-expense', payload: { expense } })
+    setExpense(initialState)
   }
 
   return (
@@ -80,6 +80,7 @@ export function ExpenseForm() {
             onChange={handleChange}
             className="w-full p-2 border bg-transparent border-gray-300 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
+          <span className='text-gray-400'>Available balance {state.available}</span>
         </div>
 
         <div>
@@ -109,7 +110,8 @@ export function ExpenseForm() {
 
         <button 
           type="submit" 
-          className="w-full bg-teal-600 text-white font-semibold py-2 rounded-lg hover:bg-teal-700 transition-all"
+          className="w-full bg-teal-600 text-white font-semibold py-2 rounded-lg enabled:hover:bg-teal-700 disabled:opacity-40 transition-all"
+          disabled={!isValid}
         >
           Add Expense
         </button>

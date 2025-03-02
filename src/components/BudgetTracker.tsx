@@ -6,7 +6,6 @@ export function BudgetTracker() {
   const { state } = useBudget()
 
   const spent = useMemo(() => 0, [state.budget])
-  const available = useMemo(() => state.budget - spent, [state.budget, spent])
 
   return (
     <div className="grid grid-cols-2 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
@@ -22,7 +21,7 @@ export function BudgetTracker() {
         </button>
         <AmountDisplay
           label="Available"
-          amount={available}
+          amount={state.available}
         />
         <AmountDisplay
           label="Budget"
