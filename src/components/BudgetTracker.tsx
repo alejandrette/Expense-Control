@@ -1,11 +1,8 @@
 import AmountDisplay from "./AmountDisplay";
-import { useMemo } from "react"
 import { useBudget } from "../hooks/useBudget"
 
 export function BudgetTracker() {
   const { state } = useBudget()
-
-  const spent = useMemo(() => 0, [state.budget])
 
   return (
     <div className="grid grid-cols-2 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
@@ -29,7 +26,7 @@ export function BudgetTracker() {
         />
         <AmountDisplay
           label="Spent"
-          amount={spent}
+          amount={state.spent}
         />
       </div>
     </div>

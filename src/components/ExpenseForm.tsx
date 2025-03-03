@@ -4,23 +4,16 @@ import 'react-calendar/dist/Calendar.css'
 import 'react-date-picker/dist/DatePicker.css'
 import { Expense } from '../types';
 import { useBudget } from '../hooks/useBudget';
+import { v4 as uuidv4 } from 'uuid';
+import { categories } from '../data/categories';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export const categories = [
-  { id: 1, name: 'Ahorro', icon: 'ahorro' },
-  { id: 2, name: 'Comida', icon: 'comida' },
-  { id: 3, name: 'Casa', icon: 'casa' },
-  { id: 4, name: 'Gastos Varios', icon: 'gastos' },
-  { id: 5, name: 'Ocio', icon: 'ocio' },
-  { id: 6, name: 'Salud', icon: 'salud' },
-  { id: 7, name: 'Suscripciones', icon: 'suscripciones' },
-];
-
 export function ExpenseForm() {
   const { state, dispatch } = useBudget()
   const initialState = {
+    id: uuidv4(),
     nameExpense: '',
     amount: 0,
     category: 0,
@@ -43,12 +36,13 @@ export function ExpenseForm() {
     }));
   };
 
-  const isValid: boolean = expense.nameExpense.trim() !== '' && expense.amount > 0 && expense.category !== 0
+  const isValid: boolean = expense.nameExpense.trim() !== '' && expense.amount > 0 && expense.category !== 0 && expense.amount <= state.available
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     dispatch({ type: 'add-expense', payload: { expense } })
-    setExpense(initialState)
+    dispatch({ type: 'close-modal' })
+    setExpense({...initialState, id: uuidv4()})
   }
 
   return (
@@ -80,7 +74,7 @@ export function ExpenseForm() {
             onChange={handleChange}
             className="w-full p-2 border bg-transparent border-gray-300 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
-          <span className='text-gray-400'>Available balance {state.available}</span>
+          <span className={`${state.available <= 0 ? 'text-red-500' : 'text-gray-400'}`}>Available balance ${state.available}</span>
         </div>
 
         <div>
