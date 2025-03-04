@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import DatePicker from 'react-date-picker';
 import 'react-calendar/dist/Calendar.css'
 import 'react-date-picker/dist/DatePicker.css'
@@ -44,6 +44,13 @@ export function ExpenseForm() {
     dispatch({ type: 'close-modal' })
     setExpense({...initialState, id: uuidv4()})
   }
+
+  useEffect(() => {
+    if(state.editExpense){
+      const editingExpense = state.expense.filter(exp => exp.id === state.editExpense)[0]
+      setExpense(editingExpense)
+    }
+  }, [state.editExpense])
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto">

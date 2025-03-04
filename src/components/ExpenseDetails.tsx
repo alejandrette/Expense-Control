@@ -3,13 +3,15 @@ import { LeadingActions, SwipeAction, SwipeableList, SwipeableListItem, Trailing
 import { Expense } from "../types"
 import AmountDisplay from "./AmountDisplay"
 import { categories } from "../data/categories"
-import "../../node_modules/react-swipeable-list/dist/styles.css";
+import 'react-swipeable-list/dist/styles.css'
+import { useBudget } from "../hooks/useBudget"
 
 type ExpenseDetailsProps = {
   expense: Expense
 }
 
 export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
+  const { dispatch } = useBudget()
   const formatDate = (dateStr: string): string => {
     const dateObj = new Date(dateStr)
     const options: Intl.DateTimeFormatOptions = {
@@ -26,7 +28,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction
-        onClick={() => {}}
+        onClick={() => dispatch({ type: 'edit-expense', payload: { id: expense.id} })}
       >
         Update
       </SwipeAction>
@@ -36,7 +38,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
   const trailingActions = () => (
     <TrailingActions>
       <SwipeAction
-        onClick={() => {}}
+        onClick={() => dispatch({ type: 'delete-expense', payload: { id: expense.id }})}
         destructive={true}
       >
         Delete
@@ -53,7 +55,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
       >
         <div className="grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4">
           <div className="w-fit">
-            <img src={`../../public/icono_${cantegoryInfo.icon}.svg`} width='50' alt="" />
+            <img src={`/public/icono_${cantegoryInfo.icon}.svg`} width='50' alt="" />
           </div>
           <div>
             <p>{cantegoryInfo.name}</p>
