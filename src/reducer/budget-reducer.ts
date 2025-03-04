@@ -31,7 +31,7 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
     return {
       ...state, 
       budget: action.payload.newBudget, 
-      available: action.payload.newBudget - state.spent
+      available: action.payload.newBudget
     }
   }
 
@@ -46,7 +46,7 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
     return {
       ...state, 
       expense: updateExpense,
-      available: state.available - newSpent,
+      available: state.budget - newSpent,
       spent: newSpent
     }
   }

@@ -50,7 +50,7 @@ export function ExpenseForm() {
       const editingExpense = state.expense.filter(exp => exp.id === state.editExpense)[0]
       setExpense(editingExpense)
     }
-  }, [state.editExpense])
+  }, [state.editExpense, state.expense])
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto">
