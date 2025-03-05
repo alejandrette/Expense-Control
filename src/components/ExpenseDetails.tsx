@@ -55,7 +55,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
       >
         <div className="grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4">
           <div className="w-fit">
-            <img src={`/public/icono_${cantegoryInfo.icon}.svg`} width='50' alt="" />
+            <img src={`/icono_${cantegoryInfo.icon}.svg`} width='50' alt="" />
           </div>
           <div>
             <p>{cantegoryInfo.name}</p>
