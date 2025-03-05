@@ -2,7 +2,7 @@ import AmountDisplay from "./AmountDisplay";
 import { useBudget } from "../hooks/useBudget"
 
 export function BudgetTracker() {
-  const { state } = useBudget()
+  const { state, dispatch } = useBudget()
 
   return (
     <div className="grid grid-cols-2 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
@@ -13,6 +13,7 @@ export function BudgetTracker() {
         <button 
           type="button"
           className="bg-pink-700 font-semibold text-white rounded-md"
+          onClick={() => dispatch({ type: 'reset-app' })}
         >
           Reset APP
         </button>

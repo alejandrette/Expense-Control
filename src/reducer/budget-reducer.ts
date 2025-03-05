@@ -6,7 +6,8 @@ export type BudgetActions =
   { type: 'close-modal'} |
   { type: 'add-expense', payload: { expense: Expense } } |
   { type: 'delete-expense', payload: { id: Expense['id'] } } |
-  { type: 'edit-expense', payload: { id: Expense['id'] } }
+  { type: 'edit-expense', payload: { id: Expense['id'] } } |
+  { type: 'reset-app'}
 
 export type BudgetState = {
   budget: number;
@@ -27,13 +28,23 @@ const localStorageExpense = (): Expense[] => {
   return expense ? JSON.parse(expense) : []
 }
 
+const initialAvailable = (): number =>{
+  const available = localStorage.getItem('available')
+  return available ? +available : 0
+}
+
+const initialSpent = (): number =>{
+  const spent = localStorage.getItem('spent')
+  return spent ? +spent : 0
+}
+
 export const initialState: BudgetState = {
   budget: initialBudget(),
   modal: false,
   expense: localStorageExpense(),
-  available: 0,
-  spent: 0,
-  editExpense: '',
+  available: initialAvailable(),
+  spent: initialSpent(),
+  editExpense: '', 
 }
 
 export const budgetReducer = (state: BudgetState = initialState, action: BudgetActions) => {
@@ -46,18 +57,18 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
   }
 
   if(action.type === 'add-expense'){
-    const newSpent = state.spent + action.payload.expense.amount
     let updateExpense: Expense[] = []
     if(state.editExpense){
       updateExpense =  state.expense.map(exp => exp.id === state.editExpense ? action.payload.expense : exp)
     } else {
       updateExpense = [...state.expense, action.payload.expense]
     }
+    const spent = updateExpense.reduce((acc, total) => acc + total.amount, 0)
     return {
       ...state, 
       expense: updateExpense,
-      available: state.budget - newSpent,
-      spent: newSpent,
+      available: state.budget - spent,
+      spent: spent,
       editExpense: '',
     }
   }
@@ -65,7 +76,12 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
   if(action.type === 'delete-expense'){
     const newExpense = state.expense.filter(exp => exp.id !== action.payload.id)
     const amountExpense = state.expense.filter(exp => exp.id === action.payload.id)[0]
-    return {...state, expense: newExpense, available: state.available + amountExpense.amount}
+    return {
+      ...state, 
+      expense: newExpense, 
+      available: state.available + amountExpense.amount,
+      spent: newExpense.reduce((acc, total) => acc + total.amount, 0)
+    }
   }
 
   if(action.type === 'edit-expense'){
@@ -73,9 +89,8 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
     return {
       ...state, 
       editExpense: action.payload.id, 
-      modal: true, available: 
-      amountExpense.amount + state.available, 
-      spent: amountExpense.amount
+      modal: true, 
+      available: amountExpense.amount + state.available, 
     }
   }
 
@@ -85,6 +100,15 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
 
   if(action.type === 'close-modal'){
     return {...state, modal: false, editExpense: '',}
+  }
+
+  if(action.type === 'reset-app'){
+    return { 
+      budget: 0,
+      modal: false,
+      expense: [],
+      spent: 0
+    }
   }
 
   return state
