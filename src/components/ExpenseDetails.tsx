@@ -57,7 +57,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
           <div className="w-fit">
             <img src={`/icono_${cantegoryInfo.icon}.svg`} width="50" alt="" />
           </div>
-          <div>
+          <div className="text-gray-700 font-medium">
             <p>{cantegoryInfo.name}</p>
             <p>{expense.nameExpense}</p>
             <p>{formatDate(expense.date!.toString())}</p>

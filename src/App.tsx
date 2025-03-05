@@ -5,6 +5,7 @@ import { useBudget } from "./hooks/useBudget";
 import { BudgetTracker } from "./components/BudgetTracker";
 import ExpenseModal from "./components/ExpenseModal";
 import { ExpenseList } from "./components/ExpenseList";
+import { FilterCategories } from "./components/FilterCategories";
 
 export default function App() {
   const { state }  = useBudget()
@@ -22,6 +23,7 @@ export default function App() {
       <Header />
       <div className="flex flex-col items-center justify-center mt-20">
         {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
+        {isValidBudget && <FilterCategories />}
         {isValidBudget && <ExpenseList />}
       </div>
       {isValidBudget && <ExpenseModal />}

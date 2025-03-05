@@ -7,7 +7,8 @@ export type BudgetActions =
   { type: 'add-expense', payload: { expense: Expense } } |
   { type: 'delete-expense', payload: { id: Expense['id'] } } |
   { type: 'edit-expense', payload: { id: Expense['id'] } } |
-  { type: 'reset-app'}
+  { type: 'reset-app'} |
+  { type: 'filter-catregory', payload: { id: Expense['id'] } }
 
 export type BudgetState = {
   budget: number;
@@ -16,6 +17,7 @@ export type BudgetState = {
   available: number;
   spent: number;
   editExpense: Expense['id'];
+  filterIdCategory: Expense['id']
 }
 
 const initialBudget = (): number =>{
@@ -45,6 +47,7 @@ export const initialState: BudgetState = {
   available: initialAvailable(),
   spent: initialSpent(),
   editExpense: '', 
+  filterIdCategory: ''
 }
 
 export const budgetReducer = (state: BudgetState = initialState, action: BudgetActions) => {
@@ -92,6 +95,10 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
       modal: true, 
       available: amountExpense.amount + state.available, 
     }
+  }
+
+  if(action.type === 'filter-catregory'){
+    return {...state, filterIdCategory: action.payload.id}
   }
 
   if(action.type === 'show-modal'){
