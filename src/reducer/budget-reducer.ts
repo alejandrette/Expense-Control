@@ -48,6 +48,7 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
       expense: updateExpense,
       available: state.budget - newSpent,
       spent: newSpent,
+      editExpense: '',
     }
   }
 
@@ -59,7 +60,13 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
 
   if(action.type === 'edit-expense'){
     const amountExpense = state.expense.filter(exp => exp.id === action.payload.id)[0]
-    return {...state, editExpense: action.payload.id, modal: true, available: amountExpense.amount + state.available, spent: amountExpense.amount}
+    return {
+      ...state, 
+      editExpense: action.payload.id, 
+      modal: true, available: 
+      amountExpense.amount + state.available, 
+      spent: amountExpense.amount
+    }
   }
 
   if(action.type === 'show-modal'){
@@ -67,7 +74,7 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
   }
 
   if(action.type === 'close-modal'){
-    return {...state, modal: false}
+    return {...state, modal: false, editExpense: '',}
   }
 
   return state

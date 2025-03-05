@@ -54,7 +54,7 @@ export function ExpenseForm() {
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg max-w-md mx-auto">
-      <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">New Expense</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 text-center mb-4">{state.editExpense ? 'Update Expense' : 'New Expense'}</h2>
       <form 
         className="flex flex-col space-y-4"
         onSubmit={handleSubmit}
@@ -114,7 +114,7 @@ export function ExpenseForm() {
           className="w-full bg-teal-600 text-white font-semibold py-2 rounded-lg enabled:hover:bg-teal-700 disabled:opacity-40 transition-all"
           disabled={!isValid}
         >
-          Add Expense
+          {state.editExpense ? 'Save Changes' : 'Add Expense'}
         </button>
       </form>
     </div>
