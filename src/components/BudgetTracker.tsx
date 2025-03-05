@@ -1,13 +1,26 @@
 import AmountDisplay from "./AmountDisplay";
 import { useBudget } from "../hooks/useBudget"
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { useMemo } from "react";
+import 'react-circular-progressbar/dist/styles.css'
 
 export function BudgetTracker() {
   const { state, dispatch } = useBudget()
 
+  const porcentage = useMemo(() => ((state.spent / state.budget) * 100), [state])
+
   return (
     <div className="grid grid-cols-2 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
       <div>
-        <p>eyy</p>
+        <CircularProgressbar 
+          value={porcentage}
+          styles={buildStyles({
+            pathColor: `${porcentage === 100 ? '#be185d' : '#14b8a6'}`,
+            trailColor: '#F5F5F5',
+            textColor: `${porcentage === 100 ? '#be185d' : '#14b8a6'}`,
+          })}
+          text={`${porcentage}%`}
+        />
       </div>
       <div className="text-2xl text-center grid gap-y-3">
         <button 

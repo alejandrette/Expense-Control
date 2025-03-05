@@ -53,16 +53,16 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <div className="grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4">
+        <div className="w-full grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4">
           <div className="w-fit">
-            <img src={`/icono_${cantegoryInfo.icon}.svg`} width='50' alt="" />
+            <img src={`/icono_${cantegoryInfo.icon}.svg`} width="50" alt="" />
           </div>
           <div>
             <p>{cantegoryInfo.name}</p>
             <p>{expense.nameExpense}</p>
             <p>{formatDate(expense.date!.toString())}</p>
           </div>
-          <div>
+          <div className="text-2xl ml-auto">
             <AmountDisplay amount={expense.amount} />
           </div>
         </div>
