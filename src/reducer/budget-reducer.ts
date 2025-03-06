@@ -41,16 +41,16 @@ const initialSpent = (): number =>{
 }
 
 export const initialState: BudgetState = {
-  budget: initialBudget(),
+  budget: initialBudget() || 0,
   modal: false,
-  expense: localStorageExpense(),
-  available: initialAvailable(),
-  spent: initialSpent(),
+  expense: localStorageExpense() || [],
+  available: initialAvailable() || 0,
+  spent: initialSpent() || 0,
   editExpense: '', 
   filterIdCategory: ''
 }
 
-export const budgetReducer = (state: BudgetState = initialState, action: BudgetActions) => {
+export const budgetReducer = (state: BudgetState = initialState, action: BudgetActions): BudgetState  => {
   if(action.type === 'add-budget'){
     return {
       ...state, 
@@ -109,14 +109,17 @@ export const budgetReducer = (state: BudgetState = initialState, action: BudgetA
     return {...state, modal: false, editExpense: '',}
   }
 
-  if(action.type === 'reset-app'){
+  if (action.type === 'reset-app') {
     return { 
       budget: 0,
       modal: false,
       expense: [],
-      spent: 0
+      available: 0,
+      spent: 0,
+      editExpense: '',
+      filterIdCategory: ''
     }
-  }
+  }  
 
   return state
 }
