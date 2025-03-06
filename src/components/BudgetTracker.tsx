@@ -10,7 +10,7 @@ export function BudgetTracker() {
   const porcentage = useMemo(() => ((state.spent / state.budget) * 100), [state])
 
   return (
-    <div className="grid grid-cols-2 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
+    <div className="grid grid-cols-2  md:w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl">
       <div>
         <CircularProgressbar 
           value={porcentage}

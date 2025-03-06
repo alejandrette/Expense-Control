@@ -19,7 +19,7 @@ export default function BudgetForm() {
   }
 
   return (
-    <div className="w-full max-w-lg p-8 bg-white shadow-lg rounded-2xl">
+    <div className="w-80 md:w-full max-w-lg p-8 bg-white shadow-lg rounded-2xl">
       <h1 className="text-2xl font-bold text-center text-gray-700">Define your budget</h1>
       
       <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
