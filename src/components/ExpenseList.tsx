@@ -10,7 +10,7 @@ export function ExpenseList() {
   const isEmpty = useMemo(() => filteredExpenses.length > 0, [filteredExpenses])
 
   return (
-    <div className="mt-6 w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl max-h-[250px] overflow-y-auto scrollbar-hide">
+    <div className="mt-6 w-80 md:w-full max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl max-h-[250px] overflow-y-auto scrollbar-hide">
       <h1 className="text-3xl font-bold">Expense List</h1>
       {!isEmpty
         ? <p className="text-gray-700 font-medium">There are no expenses</p>

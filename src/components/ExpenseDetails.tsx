@@ -14,13 +14,7 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
   const { dispatch } = useBudget()
   const formatDate = (dateStr: string): string => {
     const dateObj = new Date(dateStr)
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    }
-    return new Intl.DateTimeFormat('en-EN', options).format(dateObj)
+    return new Intl.DateTimeFormat('es-ES').format(dateObj)
   }
 
   const cantegoryInfo = useMemo(() => categories.filter(category => category.id === expense.category)[0], [expense.category])

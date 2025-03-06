@@ -10,8 +10,8 @@ export function FilterCategories() {
   }
 
   return (
-    <div className="mt-6 w-full flex items-center max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl ">
-      <label htmlFor="category" className="text-gray-700 font-medium">Filter Categories:</label>
+    <div className="mt-6 w-80 md:w-full flex items-center max-w-lg p-8 bg-white text-black shadow-lg rounded-2xl ">
+      <label htmlFor="category" className="text-gray-700 font-medium mr-3">Filter Categories:</label>
       <select 
         name="category"
         className="p-2 border w-full border-gray-300 rounded-lg bg-transparent text-gray-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
