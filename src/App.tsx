@@ -21,7 +21,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <div className="flex flex-col items-center justify-center mt-20">
+      <div className="flex flex-col items-center justify-center mt-6">
         {isValidBudget ? <BudgetTracker /> : <BudgetForm />}
         {isValidBudget && <FilterCategories />}
         {isValidBudget && <ExpenseList />}

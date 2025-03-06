@@ -53,9 +53,9 @@ export function ExpenseDetails({ expense }: ExpenseDetailsProps) {
         leadingActions={leadingActions()}
         trailingActions={trailingActions()}
       >
-        <div className="w-full grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4">
+        <div className="w-full grid items-center mt-3 grid-cols-[auto,1fr,auto] gap-4 mx-4">
           <div className="w-fit">
-            <img src={`/icono_${cantegoryInfo.icon}.svg`} width="50" alt="" />
+            <img src={`/icono_${cantegoryInfo.icon}.svg`} width="50" alt={cantegoryInfo.name} />
           </div>
           <div className="text-gray-700 font-medium">
             <p>{cantegoryInfo.name}</p>
