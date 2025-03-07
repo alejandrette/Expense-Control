@@ -103,7 +103,7 @@ export function ExpenseForm() {
           <label htmlFor="amount" className="block text-gray-700 font-medium">Date:</label>
           <DatePicker 
             name='date'
-            className='bg-transparent text-gray-700'
+            className='bg-transparent text-gray-700 w-full custom-calendar'
             value={expense.date}
             onChange={handleDateChange}
           />

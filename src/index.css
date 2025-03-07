@@ -31,3 +31,8 @@
 .swipeable-list .swipe-action {
   @apply flex justify-center items-center
 }
+
+.react-date-picker__calendar {
+  position: absolute !important;
+  left: -25px !important;
+}
