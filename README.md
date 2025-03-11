@@ -73,7 +73,6 @@ const { state, dispatch } = useBudget();
 
 ## 🚀 Desarrollo Futuro
 
-- **Gráficos de Gastos 📊**: Implementación de gráficas para visualizar los gastos de manera más intuitiva.
 - **Autenticación de Usuarios 🔑**: Permitir a los usuarios registrar su cuenta y guardar su información.
 - **Exportación de Datos 📜**: Opcion para exportar los gastos en formatos como CSV o PDF.
 
